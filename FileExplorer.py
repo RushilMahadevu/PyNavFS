@@ -23,7 +23,7 @@ class FileExplorer:
                 entry_type = "DIR" if entry.is_dir() else "FILE"
                 size = "-" if entry.is_dir() else f"{stats.st_size} bytes"
 
-                color = Fore.BLUE if entry.is_dir() else Fore.WHITE
+                color = Fore.LIGHTGREEN_EX if entry.is_dir() else Fore.LIGHTBLUE_EX
                 print(color + f"{entry_type:<6} {entry.name:<40} {size:<15} {modified_time.strftime('%Y-%m-%d %H:%M:%S')}") 
 
                 """
