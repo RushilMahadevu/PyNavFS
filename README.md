@@ -1,13 +1,13 @@
-# PyNavFS
+# 🗂️ PyNavFS
 
 A lightweight, terminal-based file system navigator and explorer written in Python. PyNavFS provides an intuitive command-line interface for basic file system operations like browsing directories, creating/deleting files and folders, and opening files.
 
-## Features
-- Directory navigation
-- File and directory listing with details
-- Create and delete files/directories
-- Open files with system default applications
-- Color-coded interface for better visibility
+## ✨ Features
+- 📁 Directory navigation
+- 📋 File and directory listing with details
+- ➕ Create and delete files/directories
+- 🔍 Open files with system default applications
+- 🎨 Color-coded interface for better visibility
 
 ## 🛠️ Installation
 
@@ -30,7 +30,7 @@ pip install colorama
 
 Run the program:
 ```bash
-python main.py
+python3 main.py
 ```
 
 ### Available Commands:
