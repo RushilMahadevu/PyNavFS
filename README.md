@@ -1,16 +1,13 @@
-# 🗂️ PyNavFS
+# PyNavFS
 
-A simple terminal-based file system navigator made in Python.
+A lightweight, terminal-based file system navigator and explorer written in Python. PyNavFS provides an intuitive command-line interface for basic file system operations like browsing directories, creating/deleting files and folders, and opening files.
 
-## 📋 Description
-PyNavFS is a command-line file explorer that allows you to navigate and manage your file system with simple commands.
-
-## 🚀 Features
-- 📁 List directory contents
-- 🔄 Navigate between directories
-- ➕ Create new directories
-- ❌ Delete files and directories
-- 🎨 Colorful terminal output
+## Features
+- Directory navigation
+- File and directory listing with details
+- Create and delete files/directories
+- Open files with system default applications
+- Color-coded interface for better visibility
 
 ## 🛠️ Installation
 
@@ -41,6 +38,8 @@ python main.py
 - `cd <path>` - Change directory
 - `mkdir <name>` - Create a new directory
 - `rm <name>` - Delete a file or directory
+- `touch <filename>` - Create a new empty file
+- `open <filename>` - Open a file with system default editor
 - `help` - Show help message
 - `exit` - Exit the program
 

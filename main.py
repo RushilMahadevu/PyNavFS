@@ -4,7 +4,7 @@ from colorama import init, Fore, Style
 def main():
     init(autoreset=True)  # Initialize colorama
     explorer = FileExplorer()
-    print(Fore.CYAN + "Simple File Explorer (type 'help' for commands)")
+    print(Style.BRIGHT + "\nSimple File Explorer (type 'help' for commands)")
 
     while True:
         try:
@@ -36,6 +36,16 @@ def main():
                     explorer.delete(args[0])
             elif cmd == "help":
                 explorer.print_help()
+            elif cmd == "touch":
+                if not args:
+                    print(Fore.RED + "Usage: touch <filename>")
+                else:
+                    explorer.create_file(args[0])
+            elif cmd == "open":
+                if not args:
+                    print(Fore.RED + "Usage: open <filename>")
+                else:
+                    explorer.open_file(args[0])
             elif cmd == "exit":
                 break
             else:

@@ -2,6 +2,9 @@ from datetime import datetime
 import shutil
 from pathlib import Path
 from colorama import Fore, Style
+import os
+import subprocess
+import platform
 
 class FileExplorer:
     def __init__(self):
@@ -99,6 +102,34 @@ class FileExplorer:
             # Handle any other exceptions
             print(Fore.RED + f"Error deleting '{name}': {e}")
 
+    def create_file(self, filename):
+        """Create a new empty file"""
+        file_path = self.current_path / filename
+        try:
+            with open(file_path, 'w') as f:
+                pass  # Create empty file
+            print(Fore.GREEN + f"Created file: {filename}")
+        except Exception as e:
+            print(Fore.RED + f"Error creating file: {e}")
+
+    def open_file(self, filename):
+        """Open a file with the default system editor"""
+        file_path = self.current_path / filename
+        if not file_path.exists():
+            print(Fore.RED + f"File not found: {filename}")
+            return
+
+        try:
+            if platform.system() == 'Windows':
+                os.startfile(file_path)
+            elif platform.system() == 'Darwin':  # macOS
+                subprocess.run(['open', file_path])
+            else:  # Linux
+                subprocess.run(['xdg-open', file_path])
+            print(Fore.GREEN + f"Opening {filename}")
+        except Exception as e:
+            print(Fore.RED + f"Error opening file: {e}")
+
     def print_help(self):
         # Display available commands.
         print(Fore.CYAN + "\nAvailable commands:\n")
@@ -106,5 +137,7 @@ class FileExplorer:
         print(Fore.GREEN + "cd <path>           - Change directory")
         print(Fore.GREEN + "mkdir <name>        - Create a new directory")
         print(Fore.GREEN + "rm <name>           - Delete a file or directory")
+        print(Fore.GREEN + "touch <filename>    - Create a new empty file")
+        print(Fore.GREEN + "open <filename>     - Open a file with default editor")
         print(Fore.GREEN + "help               - Show this help message")
         print(Fore.GREEN + "exit               - Exit the program")
