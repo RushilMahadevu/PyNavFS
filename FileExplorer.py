@@ -198,6 +198,55 @@ class FileExplorer:
         except Exception as e:
             print(Fore.RED + f"Error searching for '{name}': {e}")
 
+    def mv(self, source, destination):
+        # Move or rename a file/directory
+        try:
+            src_path = self.current_path / source
+            dst_path = self.current_path / destination
+            
+            if not src_path.exists():
+                print(Fore.RED + f"Error: {source} not found")
+                return
+                
+            # Determine operation type
+            is_move = src_path.parent != dst_path.parent
+            is_rename = src_path.name != dst_path.name
+            
+            src_path.rename(dst_path)
+            
+            # Provide appropriate feedback
+            if is_move and is_rename:
+                print(Fore.GREEN + f"Moved and renamed: {source} -> {destination}")
+            elif is_move:
+                print(Fore.GREEN + f"Moved: {source} -> {destination}")
+            else:
+                print(Fore.GREEN + f"Renamed: {source} -> {destination}")
+                
+        except FileExistsError:
+            print(Fore.RED + f"Error: {destination} already exists")
+        except Exception as e:
+            print(Fore.RED + f"Error moving/renaming: {e}")
+
+    def copy(self, source, destination):
+        # Copy a file or directory to destination
+        try:
+            src_path = self.current_path / source
+            dst_path = self.current_path / destination
+            
+            if src_path.is_file():
+                shutil.copy2(src_path, dst_path)
+                print(Fore.GREEN + f"Copied file: {source} -> {destination}")
+            elif src_path.is_dir():
+                shutil.copytree(src_path, dst_path)
+                print(Fore.GREEN + f"Copied directory: {source} -> {destination}")
+            else:
+                print(Fore.RED + f"Error: {source} not found")
+                
+        except FileExistsError:
+            print(Fore.RED + f"Error: {destination} already exists")
+        except Exception as e:
+            print(Fore.RED + f"Error copying: {e}")
+
         
     def print_help(self):
         # Display available commands.
@@ -211,6 +260,8 @@ class FileExplorer:
         print(Fore.GREEN + "run <filename>      - Run a Python script")
         print(Fore.GREEN + "cat <filename>      - Display file contents")
         print(Fore.GREEN + "find <filename>     - Find a file in the current directory and subdirectories")
+        print(Fore.GREEN + "mv <source> <dest>  - Move or rename files/directories (use one argument to rename)")
+        print(Fore.GREEN + "cp <src> <dst>      - Copy file or directory")
         print(Fore.GREEN + "help                - Show this help message")
         print(Fore.GREEN + "exit                - Exit the program")
 

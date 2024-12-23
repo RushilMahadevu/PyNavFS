@@ -61,6 +61,17 @@ def main():
                     print(Fore.RED + "Usage: find <name>")
                 else:
                     explorer.find(args[0])
+            elif cmd == "mv":
+                if len(args) != 2:
+                    print(Fore.RED + "Usage: mv <source> <destination>")
+                else:
+                    explorer.mv(args[0], args[1])
+            elif cmd == "cp":
+                if len(args) < 2:
+                    print(Fore.RED + "Usage: cp <src> <dst>")
+                else:
+                    explorer.copy(args[0], args[1])
+
             elif cmd == "exit":
                 break
             else:
