@@ -14,7 +14,7 @@ class FileExplorer:
 
     def suggest_command(self, input_command):
         # Suggest similar commands for unrecognized input.
-        commands = ["ls", "cd", "mkdir", "rm", "touch", "open", "run", "cat", "help", "exit"]
+        commands = ["ls", "cd", "mkdir", "rm", "touch", "open", "run", "cat", "find", "help", "exit"]
         matches = difflib.get_close_matches(input_command, commands, n=3, cutoff=0.6)
         if matches:
             print(Fore.MAGENTA + f"Did you mean: {', '.join(matches)}?")
@@ -178,6 +178,26 @@ class FileExplorer:
                 print(Style.RESET_ALL + content)
         except Exception as e:
             print(Fore.RED + f"Error reading file: {e}")
+    
+    def find(self, name):
+        # Search for files or directories by name in the current directory and its subdirectories.
+        try:
+            print(Fore.CYAN + f"\nSearching for '{name}' in {self.current_path}...\n")
+            matches = []
+            for root, dirs, files in os.walk(self.current_path):
+                if name in dirs or name in files:
+                    full_path = Path(root) / name
+                    matches.append(full_path)
+
+            if matches:
+                print(Fore.GREEN + "Found the following matches:")
+                for match in matches:
+                    print(Fore.LIGHTBLUE_EX + str(match))
+            else:
+                print(Fore.YELLOW + f"No matches found for '{name}'.")
+        except Exception as e:
+            print(Fore.RED + f"Error searching for '{name}': {e}")
+
         
     def print_help(self):
         # Display available commands.
@@ -190,6 +210,7 @@ class FileExplorer:
         print(Fore.GREEN + "open <filename>     - Open a file with default editor")
         print(Fore.GREEN + "run <filename>      - Run a Python script")
         print(Fore.GREEN + "cat <filename>      - Display file contents")
-        print(Fore.GREEN + "help               - Show this help message")
-        print(Fore.GREEN + "exit               - Exit the program")
+        print(Fore.GREEN + "find <filename>     - Find a file in the current directory and subdirectories")
+        print(Fore.GREEN + "help                - Show this help message")
+        print(Fore.GREEN + "exit                - Exit the program")
 

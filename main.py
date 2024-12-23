@@ -56,6 +56,11 @@ def main():
                     print(Fore.RED + "Usage: cat <filename>")
                 else:
                     explorer.cat_file(args[0])
+            elif cmd == "find":
+                if not args:
+                    print(Fore.RED + "Usage: find <name>")
+                else:
+                    explorer.find(args[0])
             elif cmd == "exit":
                 break
             else:
