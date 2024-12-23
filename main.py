@@ -51,10 +51,16 @@ def main():
                     print(Fore.RED + "Usage: run <filename>")
                 else:
                     explorer.run_python_file(args[0])
+            elif cmd == "cat":
+                if not args:
+                    print(Fore.RED + "Usage: cat <filename>")
+                else:
+                    explorer.cat_file(args[0])
             elif cmd == "exit":
                 break
             else:
-                print(Fore.RED + "Unknown command. Type 'help' for available commands.")
+                print(Fore.RED + "\nUnknown command. Type 'help' for available commands.")
+                explorer.suggest_command(cmd)
 
         except KeyboardInterrupt:
             print(Fore.YELLOW + "\nUse 'exit' to quit the program")

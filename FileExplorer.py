@@ -6,10 +6,20 @@ import os
 import subprocess
 import platform
 import sys
+import difflib
 
 class FileExplorer:
     def __init__(self):
         self.current_path = Path.cwd()
+
+    def suggest_command(self, input_command):
+        # Suggest similar commands for unrecognized input.
+        commands = ["ls", "cd", "mkdir", "rm", "touch", "open", "run", "cat", "help", "exit"]
+        matches = difflib.get_close_matches(input_command, commands, n=3, cutoff=0.6)
+        if matches:
+            print(Fore.MAGENTA + f"Did you mean: {', '.join(matches)}?")
+        else:
+            print(Fore.MAGENTA + "No similar commands found.")
 
     def list_contents(self):
         # List all files and directories in the current path.
