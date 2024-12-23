@@ -4,10 +4,12 @@ A lightweight, terminal-based file system navigator and explorer written in Pyth
 
 ## ✨ Features
 - 📁 Directory navigation
-- 📋 File and directory listing with details
+- 📋 File and directory listing with details (size, modification time)
 - ➕ Create and delete files/directories
 - 🔍 Open files with system default applications
 - 🎨 Color-coded interface for better visibility
+- 🐍 Run Python scripts directly
+- 📝 View file contents (cat command)
 
 ## 🛠️ Installation
 
@@ -21,16 +23,12 @@ git clone https://github.com/RushilMahadevu/PyNavFS.git
 cd PyNavFS
 ```
 
-3. Install required dependencies:
-```bash
-pip install colorama
-```
 
 ## 💻 Usage
 
 Run the program:
 ```bash
-python3 main.py
+python main.py
 ```
 
 ### Available Commands:
@@ -40,12 +38,14 @@ python3 main.py
 - `rm <name>` - Delete a file or directory
 - `touch <filename>` - Create a new empty file
 - `open <filename>` - Open a file with system default editor
+- `run <filename>` - Run a Python script
+- `cat <filename>` - Display file contents
 - `help` - Show help message
 - `exit` - Exit the program
 
 ## 🔧 Requirements
 - Python 3.x
-- colorama
+- colorama >= 0.4.6
 
 ## 📝 License
 MIT License

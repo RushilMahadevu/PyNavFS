@@ -46,6 +46,11 @@ def main():
                     print(Fore.RED + "Usage: open <filename>")
                 else:
                     explorer.open_file(args[0])
+            elif cmd == "run":
+                if not args:
+                    print(Fore.RED + "Usage: run <filename>")
+                else:
+                    explorer.run_python_file(args[0])
             elif cmd == "exit":
                 break
             else:

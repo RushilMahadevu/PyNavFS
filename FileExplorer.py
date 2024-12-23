@@ -5,6 +5,7 @@ from colorama import Fore, Style
 import os
 import subprocess
 import platform
+import sys
 
 class FileExplorer:
     def __init__(self):
@@ -130,6 +131,44 @@ class FileExplorer:
         except Exception as e:
             print(Fore.RED + f"Error opening file: {e}")
 
+
+    def run_python_file(self, filename):
+        # Run a Python script
+        file_path = self.current_path / filename
+        if not file_path.exists():
+            print(Fore.RED + f"File not found: {filename}")
+            return
+        if not filename.endswith('.py'):
+            print(Fore.RED + f"Not a Python file: {filename}")
+            return
+
+        try:
+            print(Fore.CYAN + f"Running {filename}...")
+            subprocess.run([sys.executable, file_path], check=True)
+            print(Fore.GREEN + f"Finished running {filename}")
+        except subprocess.CalledProcessError as e:
+            print(Fore.RED + f"Error running script: {e}")
+        except Exception as e:
+            print(Fore.RED + f"Error: {e}")
+    
+    def cat_file(self, filename):
+        # Display the contents of a file
+        file_path = self.current_path / filename
+        if not file_path.exists():
+            print(Fore.RED + f"File not found: {filename}")
+            return
+        if file_path.is_dir():
+            print(Fore.RED + f"Error: {filename} is a directory")
+            return
+
+        try:
+            with open(file_path, 'r') as f: # open file in read mode and assign to f
+                content = f.read()
+                print(Fore.CYAN + f"\nContents of {filename}:")
+                print(Style.RESET_ALL + content)
+        except Exception as e:
+            print(Fore.RED + f"Error reading file: {e}")
+        
     def print_help(self):
         # Display available commands.
         print(Fore.CYAN + "\nAvailable commands:\n")
@@ -139,5 +178,8 @@ class FileExplorer:
         print(Fore.GREEN + "rm <name>           - Delete a file or directory")
         print(Fore.GREEN + "touch <filename>    - Create a new empty file")
         print(Fore.GREEN + "open <filename>     - Open a file with default editor")
+        print(Fore.GREEN + "run <filename>      - Run a Python script")
+        print(Fore.GREEN + "cat <filename>      - Display file contents")
         print(Fore.GREEN + "help               - Show this help message")
         print(Fore.GREEN + "exit               - Exit the program")
+
