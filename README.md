@@ -10,6 +10,7 @@ A lightweight, terminal-based file system navigator and explorer written in Pyth
 - 🎨 Color-coded interface for better visibility
 - 🐍 Run Python scripts directly
 - 📝 View file contents (cat command)
+- 🔍 Search for files and directories by name (find command)
 
 ## 🛠️ Installation
 
@@ -40,6 +41,7 @@ python main.py
 - `open <filename>` - Open a file with system default editor
 - `run <filename>` - Run a Python script
 - `cat <filename>` - Display file contents
+- `find <name>` - Search for files or directories by name
 - `help` - Show help message
 - `exit` - Exit the program
 
@@ -49,3 +51,4 @@ python main.py
 
 ## 📝 License
 MIT License
+
