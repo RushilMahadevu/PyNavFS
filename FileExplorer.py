@@ -247,9 +247,35 @@ class FileExplorer:
         except Exception as e:
             print(Fore.RED + f"Error copying: {e}")
 
+    def grep(self, pattern):
+        # Search for a pattern in files within the current directory and subdirectories.
+        try:
+            print(Fore.CYAN + f"\nSearching for pattern '{pattern}' in {self.current_path}...\n")
+            matches = []
+            for root, _, files in os.walk(self.current_path):
+                for file in files:
+                    file_path = Path(root) / file
+                    try:
+                        with open(file_path, 'r', encoding='utf-8') as f:
+                            for line_number, line in enumerate(f, start=1):
+                                if pattern in line:
+                                    matches.append((file_path, line_number, line.strip()))
+                    except UnicodeDecodeError:
+                        continue  # Silently skip files that cannot be decoded as UTF-8
+                    except Exception as e:
+                        print(Fore.RED + f"Error reading file {file_path}: {e}")
+
+            if matches:
+                print(Fore.GREEN + "Found the following matches:")
+                for match in matches:
+                    print(f"{match[0]}:{match[1]}: {match[2]}")
+            else:
+                print(Fore.YELLOW + f"No matches found for pattern '{pattern}'.")
+        except Exception as e:
+            print(Fore.RED + f"Error searching for pattern '{pattern}': {e}")
+
         
     def print_help(self):
-        # Display available commands.
         print(Fore.CYAN + "\nAvailable commands:\n")
         print(Fore.GREEN + "ls                  - List contents of current directory")
         print(Fore.GREEN + "cd <path>           - Change directory")
@@ -262,6 +288,7 @@ class FileExplorer:
         print(Fore.GREEN + "find <filename>     - Find a file in the current directory and subdirectories")
         print(Fore.GREEN + "mv <source> <dest>  - Move or rename files/directories (use one argument to rename)")
         print(Fore.GREEN + "cp <src> <dst>      - Copy file or directory")
+        print(Fore.GREEN + "grep <pattern>      - Search for a pattern in files")
         print(Fore.GREEN + "help                - Show this help message")
         print(Fore.GREEN + "exit                - Exit the program")
 

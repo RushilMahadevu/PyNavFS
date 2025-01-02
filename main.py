@@ -71,7 +71,11 @@ def main():
                     print(Fore.RED + "Usage: cp <src> <dst>")
                 else:
                     explorer.copy(args[0], args[1])
-
+            elif cmd == "grep":
+                if not args:
+                    print(Fore.RED + "Usage: grep <pattern>")
+                else:
+                    explorer.grep(args[0])
             elif cmd == "exit":
                 break
             else:
